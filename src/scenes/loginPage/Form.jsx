@@ -21,7 +21,7 @@ const registerSchema = yup.object().shape({
   lastName: yup.string().required('required'),
   email: yup.string().email('invalid email').required('required'),
   password: yup.string().required('required'),
-  picturePath: yup.string().required('required'),
+  picture: yup.string().required('required'),
   location: yup.string().required('required'),
   occupation: yup.string().required('required'),
 });
@@ -36,7 +36,7 @@ const initialValuesRegister = {
   lastName: '',
   email: '',
   password: '',
-  picturePath: '',
+  picture: '',
   location: '',
   occupation: '',
 };
@@ -61,11 +61,44 @@ const Form = () => {
     for (let value in values) {
       formData.append(value, values[value]);
     }
-    formData.append('picturePath', values.picturePath.name);
+    formData.append('picturePath', values.picture.name);
+
+    const savedUserResponse = await fetch(
+      'http://localhost:3001/auth/register',
+      {
+        method: 'POST',
+        body: formData,
+      }
+    );
+    const saveUser = await savedUserResponse.json();
+
+    onSubmitProps.resetForm();
+
+    if (saveUser) {
+      setPageType('login');
+    }
   };
 
   const login = async (values, onSubmitProps) => {
-    //
+    const loggedInResponse = await fetch('http://localhost:3001/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(values),
+    });
+
+    const loggedIn = await loggedInResponse.json();
+
+    onSubmitProps.resetForm();
+
+    if (loggedIn) {
+      dispatch(
+        setLogin({
+          user: loggedIn.user,
+          token: loggedIn.token,
+        })
+      );
+      navigate('/home');
+    }
   };
 
   const handleFormSubmit = async (values, onSubmitProps) => {
@@ -156,7 +189,7 @@ const Form = () => {
                     acceptedFiles=".jpg, .jpeg, .png"
                     multiple={false}
                     onDrop={(acceptedFiles) =>
-                      setFieldValue('picturePath', acceptedFiles[0])
+                      setFieldValue('picture', acceptedFiles[0])
                     }
                   >
                     {({ getRootProps, getInputProps }) => (
@@ -167,11 +200,11 @@ const Form = () => {
                         sx={{ '&:hover': { cursor: 'pointer' } }}
                       >
                         <input {...getInputProps()} />
-                        {values.picturePath ? (
+                        {values.picture ? (
                           <p> Add Picture Here</p>
                         ) : (
                           <FlexBetween>
-                            <Typography>{values.picturePath.name}</Typography>
+                            <Typography>{values.picture.name}</Typography>
                             <ModeEditOutlineIcon />
                           </FlexBetween>
                         )}
