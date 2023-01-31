@@ -200,7 +200,7 @@ const Form = () => {
                         sx={{ '&:hover': { cursor: 'pointer' } }}
                       >
                         <input {...getInputProps()} />
-                        {values.picture ? (
+                        {!values.picture ? (
                           <p> Add Picture Here</p>
                         ) : (
                           <FlexBetween>
@@ -226,7 +226,7 @@ const Form = () => {
             />
             <TextField
               label="Password"
-              type="Password"
+              type="password"
               onBlur={handleBlur}
               onChange={handleChange}
               value={values.password}
@@ -252,25 +252,25 @@ const Form = () => {
               }}
             >
               {isLogin ? 'LOGIN' : 'REGISTER'}
-              <Typography
-                onClick={() => {
-                  setPageType(isLogin ? 'register' : 'login');
-                  resetForm();
-                }}
-                sx={{
-                  textDecoration: 'underline',
-                  color: palette.primary.main,
-                  '&:hover': {
-                    cursor: 'pointer',
-                    color: palette.primary.light,
-                  },
-                }}
-              >
-                {isLogin
-                  ? "Don't have an Account? Sign Up"
-                  : 'Already have an Account? Login'}
-              </Typography>
             </Button>
+            <Typography
+              onClick={() => {
+                setPageType(isLogin ? 'register' : 'login');
+                resetForm();
+              }}
+              sx={{
+                textDecoration: 'underline',
+                color: palette.primary.main,
+                '&:hover': {
+                  cursor: 'pointer',
+                  color: palette.primary.light,
+                },
+              }}
+            >
+              {isLogin
+                ? "Don't have an Account? Sign Up"
+                : 'Already have an Account? Login'}
+            </Typography>
           </Box>
         </form>
       )}
