@@ -8,7 +8,8 @@ const UserImage = ({ image, size = '60px' }) => {
         style={{ objectFit: 'cover', borderRadius: '50%' }}
         width={size}
         height={size}
-        src={`http://localhost:/assets/${image}`}
+        // src={`http://localhost:3001/assets/${image}`}
+        src={`https://mern-server-koe9.onrender.com/assets/${image}`}
         alt="User"
       />
     </Box>
@@ -16,3 +17,4 @@ const UserImage = ({ image, size = '60px' }) => {
 };
 
 export default UserImage;
+// https://mern-server-koe9.onrender.com
