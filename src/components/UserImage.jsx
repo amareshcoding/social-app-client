@@ -17,4 +17,3 @@ const UserImage = ({ image, size = '60px' }) => {
 };
 
 export default UserImage;
-// https://mern-server-koe9.onrender.com
