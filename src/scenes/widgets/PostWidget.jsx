@@ -8,7 +8,6 @@ import {
 import {
   Box,
   Divider,
-  Icon,
   IconButton,
   Typography,
   useTheme,
@@ -57,7 +56,7 @@ const PostWidget = ({
     dispatch(setPost({ post: updatedPosts }));
   };
   return (
-    <WidgetWrapper m="2rem 0">
+    <WidgetWrapper m="1rem 0">
       <Friend
         friendId={userId}
         name={userName}
