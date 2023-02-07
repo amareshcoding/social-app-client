@@ -94,12 +94,31 @@ const PostWidget = ({
           </FlexBetween>
 
           <FlexBetween gap="0.3rem">
-            <IconButton onClick={patchLike}></IconButton>
-
-            <Typography>{likeCount}</Typography>
+            <IconButton onClick={() => setIsComment(!isComment)}>
+              <ChatBubbleOutlineOutlined />
+            </IconButton>
+            <Typography>{comment.length}</Typography>
           </FlexBetween>
         </FlexBetween>
+
+        <IconButton>
+          <ShareOutlined />
+        </IconButton>
       </FlexBetween>
+
+      {isComment && (
+        <Box mt="0.5rem">
+          {comment.map((cmt, i) => (
+            <Box key={`${userName}-${i}`}>
+              <Divider />
+              <Typography sx={{ color: main, m: '0.5rem 0', pl: '1rem' }}>
+                {cmt}
+              </Typography>
+            </Box>
+          ))}
+          <Divider />
+        </Box>
+      )}
     </WidgetWrapper>
   );
 };
