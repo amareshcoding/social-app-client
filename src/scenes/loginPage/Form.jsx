@@ -56,7 +56,7 @@ const Form = () => {
   const isRegister = pageType === 'register';
 
   const register = async (values, onSubmitProps) => {
-    //
+    
     const formData = new FormData();
     for (let value in values) {
       formData.append(value, values[value]);
@@ -125,7 +125,7 @@ const Form = () => {
         <form onSubmit={handleSubmit}>
           <Box
             display="grid"
-            gap="30px"
+            gap="10px"
             gridTemplateColumns="repeat(4, minmax(0, 1fr))"
             sx={{
               '& > div': {

@@ -43,10 +43,10 @@ const Navbar = () => {
 
   return (
     <FlexBetween padding="1rem 6%" backgroundColor={alt}>
-      <FlexBetween gap="1.7rem">
+      <FlexBetween gap="10rem">
         <Typography
           fontWeight="bold"
-          fontSize="clamp(1rem, 2rem, 2.25rem)"
+          fontSize="clamp(1rem, 1.7rem, 2.25rem)"
           color="primary"
           onClick={() => navigate('/home')}
           sx={{
@@ -56,14 +56,14 @@ const Navbar = () => {
             },
           }}
         >
-          SOCIOPEDIA
+          SOCIAL APP
         </Typography>
         {isMobileScreens && (
           <FlexBetween
             backgroundColor={neutralLight}
             borderRadius="9px"
             gap="3rem"
-            padding="0.1rem 1.5 rem"
+            padding="0.1rem 1.5rem"
           >
             <InputBase placeholder="Search..." />
             <IconButton>

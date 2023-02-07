@@ -13,10 +13,6 @@ function App() {
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
   const isAuth = Boolean(useSelector((state) => state.token));
 
-  const friends = useSelector((state) => state.user);
-  console.log('friends: ', friends);
-
-
   return (
     <div className="App">
       <BrowserRouter>
