@@ -15,8 +15,8 @@ const ProfilePage = () => {
   const isNonMobileScreen = useMediaQuery('(min-width: 1000px)');
 
   const getUser = async () => {
-    const response = await fetch(
-      `https://mern-server-koe9.onrender.com/posts/${userId}`,
+    const res = await fetch(
+      `https://mern-server-koe9.onrender.com/users/${userId}`,
       {
         method: 'GET',
         headers: {
@@ -24,15 +24,14 @@ const ProfilePage = () => {
         },
       }
     );
-    const data = await response.json();
+
+    const data = await res.json();
     setUser(data);
   };
 
   useEffect(() => {
     getUser();
   }, []); //eslint-disable-line react-hooks/exhaustive-deps
-
-  if (!user) return null;
 
   return (
     <Box>
@@ -45,7 +44,7 @@ const ProfilePage = () => {
         justifyContent="center"
       >
         <Box flexBasis={isNonMobileScreen ? '26%' : undefined}>
-          <UserWidget userId={userId} picturePath={user.picturePath} />
+          <UserWidget userId={userId} />
           <Box m="1rem 0" />
           <FriendListWidget userId={userId} />
         </Box>
@@ -53,8 +52,8 @@ const ProfilePage = () => {
           flexBasis={isNonMobileScreen ? '45%' : undefined}
           mt={isNonMobileScreen ? undefined : '2rem'}
         >
-          <MyPostWidget picturePath={user.picturePath} />
-          
+          <MyPostWidget picturePath={user?.picturePath} />
+
           <PostsWidget userId={userId} isProfile />
         </Box>
       </Box>

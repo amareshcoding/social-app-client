@@ -36,6 +36,7 @@ const Friend = ({ friendId, name, subtitle, userpicturePath }) => {
     const data = await response.json();
     dispatch(setFriends({ friends: data }));
   };
+  
   return (
     <FlexBetween>
       <FlexBetween gap="1rem">

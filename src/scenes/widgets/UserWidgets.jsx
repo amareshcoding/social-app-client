@@ -12,7 +12,7 @@ import WidgetWrapper from 'components/WidgetWrapper';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-const UserWidget = ({ userId, picturePath }) => {
+const UserWidget = ({ userId }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const token = useSelector((state) => state.token);
@@ -20,9 +20,8 @@ const UserWidget = ({ userId, picturePath }) => {
   const dark = palette.neutral.dark;
   const medium = palette.neutral.medium;
   const main = palette.neutral.main;
-
+  
   const getUser = async () => {
-    console.log('getUser runs');
     const res = await fetch(
       `https://mern-server-koe9.onrender.com/users/${userId}`,
       {
@@ -51,6 +50,7 @@ const UserWidget = ({ userId, picturePath }) => {
     friends,
     location,
     occupation,
+    picturePath,
     viewedProfile,
     impression,
   } = user;
@@ -59,7 +59,7 @@ const UserWidget = ({ userId, picturePath }) => {
       <FlexBetween
         gap="0.5rem"
         pb="1.1rem"
-        onClick={() => navigate(`profile/${userId}`)}
+        onClick={() => navigate(`/profile/${userId}`)}
       >
         {/* First Row */}
         <FlexBetween gap="1rem">

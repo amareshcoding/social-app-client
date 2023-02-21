@@ -9,8 +9,6 @@ const FriendListWidget = ({ userId }) => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
   const friends = useSelector((state) => state.user.friends);
-  console.log('friends: ', friends);
-
   const { palette } = useTheme();
 
   const getFriends = async () => {
@@ -24,13 +22,13 @@ const FriendListWidget = ({ userId }) => {
       }
     );
     const data = await response.json();
-    console.log('getFriends data: ', data);
     dispatch(setFriends({ friends: data }));
   };
 
   useEffect(() => {
     getFriends();
   }, []); //eslint-disable-line react-hooks/exhaustive-deps
+
   return (
     <WidgetWrapper>
       <Typography
