@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {
   Box,
   Button,
+  CircularProgress,
   TextField,
   Typography,
   useMediaQuery,
@@ -48,55 +49,72 @@ const initialValuesLogin = {
 
 const Form = () => {
   const [pageType, setPageType] = useState('login');
+  const [loading, setLoading] = useState(false);
+  const isNonMobileScreen = useMediaQuery('(min-width: 600px)');
   const { palette } = useTheme();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const isNonMobileScreen = useMediaQuery('(min-width: 600px)');
   const isLogin = pageType === 'login';
   const isRegister = pageType === 'register';
 
   const register = async (values, onSubmitProps) => {
-    
-    const formData = new FormData();
-    for (let value in values) {
-      formData.append(value, values[value]);
-    }
-    formData.append('picturePath', values.picture.name);
-
-    const savedUserResponse = await fetch(
-      'https://mern-server-koe9.onrender.com/auth/register',
-      {
-        method: 'POST',
-        body: formData,
+    try {
+      setLoading(true);
+      const formData = new FormData();
+      for (let value in values) {
+        formData.append(value, values[value]);
       }
-    );
-    const saveUser = await savedUserResponse.json();
+      formData.append('picturePath', values.picture.name);
 
-    onSubmitProps.resetForm();
+      const savedUserResponse = await fetch(
+        'https://mern-server-koe9.onrender.com/auth/register',
+        {
+          method: 'POST',
+          body: formData,
+        }
+      );
+      const saveUser = await savedUserResponse.json();
 
-    if (saveUser) {
-      setPageType('login');
+      onSubmitProps.resetForm();
+
+      if (saveUser) {
+        setLoading(false);
+        setPageType('login');
+      }
+    } catch (err) {
+      setLoading(false);
     }
   };
 
   const login = async (values, onSubmitProps) => {
-    const loggedInResponse = await fetch('https://mern-server-koe9.onrender.com/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(values),
-    });
+    try {
+      setLoading(true);
 
-    const loggedIn = await loggedInResponse.json();    
-    onSubmitProps.resetForm();
-
-    if (loggedIn) {
-      dispatch(
-        setLogin({
-          user: loggedIn.user,
-          token: loggedIn.token,
-        })
+      const loggedInResponse = await fetch(
+        'https://mern-server-koe9.onrender.com/auth/login',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(values),
+        }
       );
-      navigate('/home');
+
+      const loggedIn = await loggedInResponse.json();
+
+      onSubmitProps.resetForm();
+
+      if (loggedIn) {
+        setLoading(false);
+        dispatch(
+          setLogin({
+            user: loggedIn.user,
+            token: loggedIn.token,
+          })
+        );
+        navigate('/home');
+      }
+    } catch (err) {
+      setLoading(false);
     }
   };
 
@@ -240,17 +258,30 @@ const Form = () => {
             <Button
               fullWidth
               type="submit"
+              disabled={loading ? true : false}
               sx={{
                 m: '2rem 0',
                 p: '1rem',
-                backgroundColor: palette.primary.main,
+                backgroundColor: `${
+                  loading ? '#638899' : palette.primary.main
+                }`,
                 color: palette.background.alt,
                 '&:hover': {
                   color: palette.primary.main,
                 },
               }}
             >
-              {isLogin ? 'LOGIN' : 'REGISTER'}
+              {loading ? (
+                <CircularProgress
+                  sx={{ color: '#202020' }}
+                  size={20}
+                  color="success"
+                />
+              ) : isLogin ? (
+                'LOGIN'
+              ) : (
+                'REGISTER'
+              )}
             </Button>
             <Typography
               onClick={() => {
