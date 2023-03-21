@@ -55,6 +55,7 @@ const PostWidget = ({
     const updatedPosts = await response.json();
     dispatch(setPost({ post: updatedPosts }));
   };
+  
   return (
     <WidgetWrapper m="1rem 0">
       <Friend

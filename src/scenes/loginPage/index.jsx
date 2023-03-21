@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, Typography, useTheme, useMediaQuery } from '@mui/material';
 import Form from './Form';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 const LoginPage = () => {
+  const navigate = useNavigate();
   const theme = useTheme();
   const isNonMobileScreen = useMediaQuery('(min-width: 1000px)');
+  const user = useSelector((state) => state.user);
+
+  useEffect(() => {
+    if (user) {
+      navigate('/home', { replace: true });
+    }
+  }, []); //eslint-disable-line react-hooks/exhaustive-deps
+
   return (
     <Box>
       <Box
