@@ -1,7 +1,18 @@
-## Social Application
-<p> An Application built using React, MaterialUI, Node.js and MongoDB </p>
-<p>Users need to register and then log in to land on the home page, there the user will see the posts from all users</p>
-<p>Users can create a post and add another user as a friend</p>
+## Social Application Client
+
+<p>Users need to register and then log in to land on the home page, there the user will see the posts from all users. Users can create a post and add another user as a friend</p>
+
+### Tech Stacks
+<ul>
+  <li>React.js</li>
+  <li>react-router-dom@6</li>
+  <li>@reduxjs/toolkit</li>
+  <li>redux-persistt</li>
+  <li>@mui/material</li>
+  <li>@mui/icons-material</li>
+  <li>formik</li>
+  <li>yup</li>
+</ul>
 
 ## Home Page Preview
 ![image](https://user-images.githubusercontent.com/96060638/227236927-bb9dbc33-41d1-46d9-8667-24f2ad6ddff2.png)
