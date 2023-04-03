@@ -20,7 +20,7 @@ const UserWidget = ({ userId }) => {
   const dark = palette.neutral.dark;
   const medium = palette.neutral.medium;
   const main = palette.neutral.main;
-  
+
   const getUser = async () => {
     const res = await fetch(
       `https://mern-server-koe9.onrender.com/users/${userId}`,
@@ -56,6 +56,7 @@ const UserWidget = ({ userId }) => {
   } = user;
   return (
     <WidgetWrapper>
+      {/* style={{ position: 'sticky', top: 90, zIndex: 4 }} */}
       <FlexBetween
         gap="0.5rem"
         pb="1.1rem"
